@@ -9,6 +9,7 @@ func caseUser(db*gorm.DB ){
 	fmt.Println("SELECT YOUR OPTION")
 	fmt.Println("0:Go Back To Main Menu")
 	fmt.Println("1:Create User ")
+	fmt.Println("2:Get User By Id")
 	fmt.Print("Your Choice:- ")
 	fmt.Scan(&number)
 		switch number {
@@ -16,6 +17,8 @@ func caseUser(db*gorm.DB ){
 		MainMenu(db)
 		case 1:
 		    CreateUser(db)
+		case 2:
+			GetUserById(db)
 		default:
 		fmt.Println("Invalid option")
 		}
@@ -39,4 +42,15 @@ func CreateUser(db*gorm.DB ){
 	db.Create(&user)
 
 }
-
+func GetUserById (db*gorm.DB){
+	var id int
+	fmt.Println("Enter your id:")
+	fmt.Scan(&id)
+	var user = []model.User{}
+    db.Where("id = ?", id).Find(&user)
+	fmt.Println("id\t", "firstname\t","middlename\t","LastName\t","designation\t") 
+	for _, user:= range user { 
+    		fmt.Println(user.ID,"\t",user.FirstName,"\t",user.MiddleName,"\t\t",user.LastName,"\t",user.Designation) 
+			fmt.Println("---------------------------------------------------------------------------------------")
+}
+}
