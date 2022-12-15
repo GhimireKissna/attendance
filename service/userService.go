@@ -10,6 +10,7 @@ func caseUser(db*gorm.DB ){
 	fmt.Println("0:Go Back To Main Menu")
 	fmt.Println("1:Create User ")
 	fmt.Println("2:Get User By Id")
+	fmt.Println("3:update user")
 	fmt.Print("Your Choice:- ")
 	fmt.Scan(&number)
 		switch number {
@@ -19,6 +20,8 @@ func caseUser(db*gorm.DB ){
 		    CreateUser(db)
 		case 2:
 			GetUserById(db)
+		case 3:
+			Updateuser(db)
 		default:
 		fmt.Println("Invalid option")
 		}
@@ -53,4 +56,23 @@ func GetUserById (db*gorm.DB){
     		fmt.Println(user.ID,"\t",user.FirstName,"\t",user.MiddleName,"\t\t",user.LastName,"\t",user.Designation) 
 			fmt.Println("---------------------------------------------------------------------------------------")
 }
+}
+func Updateuser(db*gorm.DB){
+var id int
+var firstName string
+var middleName string
+var lastName string
+var designation string
+fmt.Println("Enter an Id")
+fmt.Scan(&id)
+fmt.Println("Enter Updated First Name")
+fmt.Scan(&firstName)
+fmt.Println("Enter Updatd Middle Name")
+fmt.Scan(&middleName)
+fmt.Println("Enter Updated Last Name")
+fmt.Scan(&lastName)
+fmt.Println("Enter New Designation")
+fmt.Scan(&designation)
+updateQuery :=fmt.Sprintf("UPDATE users SET first_name ='%s',middle_name = '%s',last_name ='%s',designation ='%s'where id = %d",firstName,middleName,lastName,designation,id)
+db.Exec(updateQuery)
 }
